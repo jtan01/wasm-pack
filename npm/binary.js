@@ -10,8 +10,11 @@ const getPlatform = () => {
     return "x86_64-pc-windows-msvc";
   }
   if (type === "Linux" && arch === "x64") {
-    return "x86_64-unknown-linux-musl";
+    return "x86_64-unknown-linux-unknown";
   }
+  if (type === "Linux" && arch === "arm64") {
+    return "aarch64-unknown-linux-unknown";
+  }  
   if (type === "Darwin" && arch === "x64") {
     return "x86_64-apple-darwin";
   }
@@ -22,7 +25,7 @@ const getPlatform = () => {
 const getBinary = () => {
   const platform = getPlatform();
   const version = require("./package.json").version;
-  const author = "rustwasm";
+  const author = "jtan01";
   const name = "wasm-pack";
   const url = `https://github.com/${author}/${name}/releases/download/v${version}/${name}-v${version}-${platform}.tar.gz`;
   return new Binary(url, { name });
